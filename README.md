@@ -1,6 +1,7 @@
 # Game Development by C++ and SDL
 Created by Dev-Azairn
-![NOTE] This workshop is still in development process. Please waiting for full version in 16 June, 2025
+> [!NOTE]
+> This workshop is still in development process. Please waiting for full version in 16 June, 2025
 
 ## Topic
 1. Git
