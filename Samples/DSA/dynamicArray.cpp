@@ -1,8 +1,10 @@
 #include <iostream>
+#include "list.cpp"
 #include <stdexcept>
 
-template <class T>
-class DynamicArray {
+
+template <typename T>
+class DynamicArray : public List<T>{
     private:
         T* array;
         int length;
@@ -39,7 +41,7 @@ class DynamicArray {
             return length;
         }
 
-        int get(int index)
+        T get(int index)
         {
             if(index >= length || index < 0) throw std::runtime_error("Bad index access");
             return array[index];
@@ -95,7 +97,7 @@ class DynamicArray {
             return true;
         }
 
-        bool insertAt(int index, T data)
+        bool addAt(int index, T data)
         {
             if (index >= length + 1) return false;
             if (length + 1 > capacity) if (!resize()) return false;
@@ -119,7 +121,7 @@ class DynamicArray {
             return true;
         }
 
-        void display_array()
+        void display()
         {
             for (int i = 0; i < length; i++)
             {
@@ -134,7 +136,7 @@ class DynamicArray {
 };  
 
 int main(){
-    DynamicArray<int>* arr = new DynamicArray<int>(); 
+    List<int>* arr = new DynamicArray<int>(); 
 
     arr->addLast(10);
     arr->addLast(20);
@@ -144,10 +146,10 @@ int main(){
     arr->addFirst(0);
     arr->deleteLast();
     arr->deleteFirst();
-    arr->insertAt(2, 60);
+    arr->addAt(2, 60);
     arr->deleteAt(2);
     arr->set(0, 50);
-    arr->display_array();
+    arr->display();
     std::cout << arr->get(0) << "\n";
     std::cout << arr->size() << "\n";
     // bad index access -> std::cout << arr->get(4);
