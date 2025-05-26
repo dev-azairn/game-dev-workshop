@@ -79,30 +79,6 @@ public:
         return false;
     }
 
-    int search(T data){
-        Node<T>* current = head;
-        int index = 0;
-        while (current != nullptr) {
-            if (current->data == data)
-                return index;
-            current = current->next;
-            index++;
-        }
-        return -1;
-    }
-
-    int searchAtPosition(int position){
-        Node<T>* current = head;
-        int index = 0;
-        while (current != nullptr) {
-            if (index == position)
-                return current->data;
-            current = current->next;
-            index ++;
-        }
-        return -1;
-    }
-
     bool removeAtTheBeginning(){
         if(head == nullptr) return false;
         Node<T>* temp = head;
@@ -186,13 +162,11 @@ int main() {
         std::cout << "1. InsertAtTheBeginning" << "\n";
         std::cout << "2. InsertAtPosition" << "\n";
         std::cout << "3. InsertAtTheEnd" << "\n";
-        std::cout << "4. SearchPositionOfData" << "\n";
-        std::cout << "5. SearchDataOfPosition" << "\n";
-        std::cout << "6. DeleteAtTheBeginning" << "\n";
-        std::cout << "7. DeleteAtPostition" << "\n";
-        std::cout << "8. DeleteAtTheEnd" << "\n";
-        std::cout << "9. DisplayList" << "\n";
-        std::cout << "10. DeleteList and Exit" << "\n";
+        std::cout << "4. DeleteAtTheBeginning" << "\n";
+        std::cout << "5. DeleteAtPostition" << "\n";
+        std::cout << "6. DeleteAtTheEnd" << "\n";
+        std::cout << "7. DisplayList" << "\n";
+        std::cout << "8. DeleteList and Exit" << "\n";
         std::cout << "========================" <<"\n";
         std::cout << "Input the mode: ";
         std::cin >> input;
@@ -226,34 +200,12 @@ int main() {
                 std::cout << "Not Success" << "\n";
             break;
         case 4:
-            std::cout << "Data: ";
-            std::cin >> data;
-            position = list->search(data);
-            if(position){
-                std::cout << position << "\n";
-            } else {
-                std::cout << "Not in List" << "\n";
-            }
-            break;
-
-        case 5:
-            std::cout << "Position: ";
-            std::cin >> position;
-            data = list->searchAtPosition(position);
-            if(data >= 0){
-                std::cout << data << "\n";
-            } else {
-                std::cout << "Not in List" << "\n";
-            }
-            break;
-
-        case 6:
             if(list->removeAtTheBeginning())
                 std::cout << "Success" << "\n";
             else
                 std::cout << "Not Success" << "\n";
             break;
-        case 7:
+        case 5:
             std::cout << "Position: ";
             std::cin >> position;
             if(list->removeAtPosition(position))
@@ -261,21 +213,21 @@ int main() {
             else
                 std::cout << "Not Success" << "\n";
             break;
-        case 8:
+        case 6:
             if(list->removeAtTheEnd())
                 std::cout << "Success" << "\n";
             else
                 std::cout << "Not Success" << "\n";
             break;
-        case 9:
+        case 7:
             list->displayList();
             break;
-        case 10:
-            list->~LinkedList();
+        case 8:
+            delete list;
         default:
             break;
         }
     
-    } while (input != 10);
+    } while (input != 8);
     return 0;
 }

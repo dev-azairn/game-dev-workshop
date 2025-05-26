@@ -1,8 +1,5 @@
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
-
 #include <iostream>
+#include <stdexcept>
 
 template <class T>
 class DynamicArray {
@@ -37,6 +34,23 @@ class DynamicArray {
             return true;
         }
 
+        int size()
+        {
+            return length;
+        }
+
+        int get(int index)
+        {
+            if(index >= length || index < 0) throw std::runtime_error("Bad index access");
+            return array[index];
+        }
+
+        void set(int index, T data)
+        {
+            if(index >= length || index < 0) throw std::runtime_error("Bad index access");
+            array[index] = data;
+        }
+
         bool addFirst(T data)
         {   
             if(array == nullptr) DynamicArray();
@@ -54,9 +68,14 @@ class DynamicArray {
             return true;
         }
 
-        bool deleteFirst(T data)
+        bool deleteFirst()
         {
-            if(length <= 0) return false;
+            if(length <= 0 || array == nullptr) return false;
+            length--;
+            for(int i = 0; i < length; i++)
+            {
+                array[i] = array[i+1];
+            }
             return true;
         }
 
@@ -66,6 +85,37 @@ class DynamicArray {
             if(length + 1 > capacity) if(!resize()) return false;
             array[length] = data;
             length++;
+            return true;
+        }
+
+        bool deleteLast()
+        {
+            if (length <= 0 || array == nullptr) return false;
+            length--;
+            return true;
+        }
+
+        bool insertAt(int index, T data)
+        {
+            if (index >= length + 1) return false;
+            if (length + 1 > capacity) if (!resize()) return false;
+            length++;
+            for (int i = length - 1;  i > index; i--)
+            {
+                array[i] = array[i - 1];
+            }
+            array[index] = data;
+            return true;
+        }
+        
+        bool deleteAt(int index)
+        {
+            if(length <= 0 || array == nullptr) return false;
+            for(int i = index + 1; i < length; i++)
+            {
+                array[i - 1] = array[i];
+            }
+            length--;
             return true;
         }
 
@@ -85,16 +135,24 @@ class DynamicArray {
 
 int main(){
     DynamicArray<int>* arr = new DynamicArray<int>(); 
+
     arr->addLast(10);
     arr->addLast(20);
     arr->addLast(30);
     arr->addLast(40);
     arr->addLast(50);
     arr->addFirst(0);
+    arr->deleteLast();
+    arr->deleteFirst();
+    arr->insertAt(2, 60);
+    arr->deleteAt(2);
+    arr->set(0, 50);
     arr->display_array();
+    std::cout << arr->get(0) << "\n";
+    std::cout << arr->size() << "\n";
+    // bad index access -> std::cout << arr->get(4);
 
-    //report memory leak
-    _CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG); 
-    _CrtDumpMemoryLeaks();
+    //Using Destructor automatically.
+    delete arr;
     return 0;
 }
