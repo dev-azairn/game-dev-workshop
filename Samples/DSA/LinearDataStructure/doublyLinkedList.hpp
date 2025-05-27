@@ -47,15 +47,34 @@ class DoublyLinkedList : public List<T>
         {
             if (index < 0 || index >= length) 
             {
-                
+                return std::nullopt;
             }
-            int i = 0;
+            int i;
             node<T>* current;
             if(index < length/2)
+            {
                 current = head;
+                while (i < index)
+                {
+                    current = current->next;
+                    i++;
+                }
+                return current->next;
+                
+            }
             else
+            {
                 current = tail;
-            
+                i = length;
+                while (i > criteria)
+                {
+                    current = current->prev;
+                    i--;
+                }
+                return current->prev;
+            }
         }
+
+        
 
 };
