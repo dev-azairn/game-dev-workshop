@@ -1,10 +1,9 @@
-#include <iostream>
-#include "list.cpp"
+#include "list.hpp"
 
 template <typename T>
 struct node {
     T data;
-    node* next;
+    node<T>* next;
 
     node(T data) : data(data), next(nullptr) {};
 };
@@ -16,6 +15,26 @@ class LinkedList : public List<T>
         node<T>* head;
         int length;
 
+        bool reverseList(node<T>* current)
+        {   
+            // Recursion for change the head
+            if (current == nullptr) return false;
+            if (current->next == nullptr)
+            {
+                head = current;
+                return true;
+            }
+
+            // Callback changing next
+            if(reverseList(current->next))
+            {
+                node<T>* temp = current->next;
+                temp->next = current;
+                current->next = nullptr;
+            }
+            return true;
+        }
+
     public:
         LinkedList() 
         {
@@ -23,7 +42,7 @@ class LinkedList : public List<T>
             length = 0;
         }
 
-        virtual ~LinkedList() 
+        ~LinkedList() 
         {
             node<T>* current = head;
             while (current != nullptr) 
@@ -34,15 +53,24 @@ class LinkedList : public List<T>
             }
         }
 
+        bool reverse()
+        {
+            if (head == nullptr) 
+                return false;
+            node<T>* current = head;
+            bool result = reverseList(current);
+            if(!result) delete current;
+            return result;
+        }
+
         int size()
         {
             return length;
         }
 
-        T get(int index)
+        std::optional<T> get(int index)
         {
-            if(index < 0 || index >= length) throw std::runtime_error("Invalid index!");
-
+            if(index < 0 || index >= length) return std::nullopt;
             int i = 0;
             node<T>* current = head;
             while(head != nullptr && i < index)
@@ -55,7 +83,7 @@ class LinkedList : public List<T>
 
         void set(int index, T data)
         {
-            if(index < 0 || index >= length) throw std::runtime_error("Invalid index!");
+            if(index < 0 || index >= length) return;
             
 
             int i = 0;
@@ -218,30 +246,3 @@ class LinkedList : public List<T>
             std::cout << "\n";
         }
 };
-
-// Tester
-/*
-
-int main() 
-{
-    std::cout << "Welcome to Singly Linked List Tester!" << "\n";
-    List<int>* list = new LinkedList<int>();
-    list->addFirst(10);
-    list->addFirst(20);
-    list->addLast(30);
-    list->addAt(2, 40);
-    list->deleteAt(1);
-    list->deleteFirst();
-    list->deleteLast();
-    list->addFirst(50);
-    list->addFirst(60);
-    list->addFirst(70);
-    list->set(2, 10);
-    list->set(3, 20);
-    list->display();
-    std::cout << list->get(0) << "\n";
-    std::cout << list->get(3) << "\n";
-    delete list;
-    return 0;
-}
-*/

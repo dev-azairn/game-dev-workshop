@@ -1,6 +1,5 @@
-#include "linkedlist.cpp"
-#include <iostream>
-#include <stdexcept>
+#include "list.hpp"
+#include "linkedList.hpp"
 
 template <typename T>
 class Stack : public LinkedList<T>
@@ -20,7 +19,7 @@ class Stack : public LinkedList<T>
             return this->addLast(data);
         }
 
-        T dequeue()
+        T pop()
         {
             if (this->size() <= 0) throw std::runtime_error("No element left!");
             T x = this->get(0);
@@ -29,13 +28,3 @@ class Stack : public LinkedList<T>
         }
 
 };
-
-int main(void)
-{
-    Stack<int>* stack = new Stack<int>(2); 
-    stack->push(12);
-    stack->push(11);
-    
-    delete stack;
-    return (0);
-}

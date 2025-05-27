@@ -1,11 +1,16 @@
 // List Interface
+#include <iostream>
+#include <string>
+#include <type_traits>
+#include <optional>
+
 template <typename T>
 class List
 {
     public:
         virtual ~List() {};
         virtual int size() = 0;
-        virtual T get(int index) = 0;
+        virtual std::optional<T> get(int index) = 0;
         virtual void set(int index, T data) = 0;
         virtual bool addFirst(T data) = 0;
         virtual bool addLast(T data) = 0;

@@ -1,7 +1,4 @@
-#include <iostream>
-#include "list.cpp"
-#include <stdexcept>
-
+#include "list.hpp"
 
 template <typename T>
 class DynamicArray : public List<T>{
@@ -41,15 +38,16 @@ class DynamicArray : public List<T>{
             return length;
         }
 
-        T get(int index)
+        std::optional<T> get(int index)
         {
-            if(index >= length || index < 0) throw std::runtime_error("Bad index access");
+            if(index >= length || index < 0) 
+                return std::nullopt;
             return array[index];
         }
 
         void set(int index, T data)
         {
-            if(index >= length || index < 0) throw std::runtime_error("Bad index access");
+            if(index >= length || index < 0) return;
             array[index] = data;
         }
 
@@ -134,27 +132,3 @@ class DynamicArray : public List<T>{
         
 
 };  
-
-int main(){
-    List<int>* arr = new DynamicArray<int>(); 
-
-    arr->addLast(10);
-    arr->addLast(20);
-    arr->addLast(30);
-    arr->addLast(40);
-    arr->addLast(50);
-    arr->addFirst(0);
-    arr->deleteLast();
-    arr->deleteFirst();
-    arr->addAt(2, 60);
-    arr->deleteAt(2);
-    arr->set(0, 50);
-    arr->display();
-    std::cout << arr->get(0) << "\n";
-    std::cout << arr->size() << "\n";
-    // bad index access -> std::cout << arr->get(4);
-
-    //Using Destructor automatically.
-    delete arr;
-    return 0;
-}
