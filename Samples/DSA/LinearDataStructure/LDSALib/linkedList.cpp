@@ -1,4 +1,4 @@
-#include "list.hpp"
+#include "sequence.hpp"
 
 template <typename T>
 struct node {
@@ -9,7 +9,7 @@ struct node {
 };
 
 template <typename T>
-class LinkedList : public List<T> 
+class LinkedList : public Sequence<T> 
 {
     private:
         node<T>* head;

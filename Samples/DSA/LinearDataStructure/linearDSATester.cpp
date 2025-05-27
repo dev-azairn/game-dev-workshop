@@ -1,5 +1,5 @@
 // =================== DO NOT MODIFY THIS FILE =========================
-#include "LinearDataStructure/linearDSA.hpp"
+#include "LDSALib/linearDSA.hpp"
 
 void arrayTester();
 void dynamicArrayTester();
@@ -23,7 +23,14 @@ int main()
 
 }
 
+void arrayTester()
+{
+    Array<int>* array = new Array<int>(10);
+}
+
 void doublyLinkedListTester()
 {
+    DoublyLinkedList<int>* list = new DoublyLinkedList<int>(); 
 
+    delete list;
 }

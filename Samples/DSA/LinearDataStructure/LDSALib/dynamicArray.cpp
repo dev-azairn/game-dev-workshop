@@ -1,7 +1,7 @@
-#include "list.hpp"
+#include "sequence.hpp"
 
 template <typename T>
-class DynamicArray : public List<T>{
+class DynamicArray : public Sequence<T>{
     private:
         T* array;
         int length;

@@ -1,3 +1,4 @@
+#include "sequence.hpp"
 #include "list.hpp"
 #include "array.hpp"
 #include "dynamicArray.hpp"

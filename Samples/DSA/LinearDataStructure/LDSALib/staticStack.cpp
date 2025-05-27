@@ -1,5 +1,5 @@
-#include "list.hpp"
-#include "linkedList.hpp"
+#include "sequence.hpp"
+#include "linkedList.cpp"
 
 template <typename T>
 class Stack : public LinkedList<T>
