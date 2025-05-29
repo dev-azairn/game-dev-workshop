@@ -6,5 +6,6 @@
         "vector": "cpp",
         "xmemory": "cpp",
         "optional": "cpp"
-    }
+    },
+    "cmake.sourceDirectory": "D:/CPP/Samples/DSA/LinearDataStructure"
 }

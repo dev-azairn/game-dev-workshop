@@ -1,0 +1,1 @@
+add_library(TesterLib testerFunction.cpp subFunction.cpp)
